@@ -5,34 +5,69 @@ using System.Text;
 using System.Threading.Tasks;
 namespace AdressBook_Management
 {
-
-
-
-    public class AddressBook
-    {
-        public Contact[] ContactInfo { get; set; }
-        public int NumberOfContacts { get; set; }
-
-        public AddressBook()
+        public class AddressBook
         {
-            ContactInfo = new Contact[100];
-            NumberOfContacts = 0;
-        }
+            public Contact[] ContactInfo { get; set; }
 
-        public void AddContact(Contact contact)
-        {
-            ContactInfo[NumberOfContacts] = contact;
-            NumberOfContacts++;
-        }
+            public int NumberOfContacts { get; set; }
 
-
-        public void PrintContacts()
-        {
-            for (int i = 0; i < NumberOfContacts; i++)
+            public AddressBook()
             {
-                Console.WriteLine("Name: {0} {1}\nCountry: {2}\nPhone: {3}\nEmail: {4}\n",
-                    ContactInfo[i].firstName, ContactInfo[i].lastName, ContactInfo[i].country, ContactInfo[i].phoneNumber, ContactInfo[i].email);
+                ContactInfo = new Contact[100];
+
+                NumberOfContacts = 0;
+            }
+
+            public void AddContact(Contact contact)
+            {
+                ContactInfo[NumberOfContacts] = contact;
+                NumberOfContacts++;
+            }
+
+
+            public void PrintContacts()
+            {
+                for (int i = 0; i < NumberOfContacts; i++)
+                {
+                    Console.WriteLine("Name: {0} {1}\nCountry: {2}\nPhone: {3}\nEmail: {4}\n",
+                        ContactInfo[i].firstName, ContactInfo[i].lastName, ContactInfo[i].country, ContactInfo[i].phoneNumber, ContactInfo[i].email);
+                }
+            }
+
+            public void EditContacts(string firstName, string lastName, string newFirstName, string newLastName, string country, string phoneNumber, string email)
+            {
+                for (int i = 0; i < NumberOfContacts; i++)
+                {
+                    if (ContactInfo[i].firstName == firstName && ContactInfo[i].lastName == lastName)
+                    {
+                        ContactInfo[i].firstName = newFirstName;
+                        ContactInfo[i].lastName = newLastName;
+                        ContactInfo[i].country = country;
+                        ContactInfo[i].phoneNumber = phoneNumber;
+                        ContactInfo[i].email = email;
+                    }
+                }
+            }
+
+            public void DeleteContact(string firstName, string lastName)
+            {
+                for (int i = 0; i < NumberOfContacts; i++)
+                {
+                    if (ContactInfo[i].firstName == firstName && ContactInfo[i].lastName == lastName)
+                    {
+
+                        for (int j = i; j < NumberOfContacts - 1; j++)
+                        {
+                            ContactInfo[j] = ContactInfo[j + 1];
+                        }
+                        ContactInfo[NumberOfContacts - 1] = null;
+                        NumberOfContacts--;
+                        return;
+                    }
+                }
             }
         }
     }
-}
+
+
+    
